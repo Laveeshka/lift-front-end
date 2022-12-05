@@ -3,7 +3,7 @@ import { Tabs, Tab } from "@mui/material";
 import { useParams, useNavigate, Link } from 'react-router-dom';
 
 function Tabnav() {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState(0);
 
   
   return (

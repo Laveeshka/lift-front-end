@@ -8,10 +8,13 @@ import {
 } from "react-router-dom";
 import Summary from "./pages/Summary/Summary";
 import Workout from "./pages/Workout/Workout";
+import { ThemeProvider } from '@mui/material/styles';
+import { liftTheme } from './liftTheme';
 
 function App() {
   return (
-    <Container maxWidth="sm">
+    <ThemeProvider theme={liftTheme}>
+    <Container maxWidth="mobile">
       <BrowserRouter>
       <Tabnav />
       <Routes>
@@ -22,6 +25,7 @@ function App() {
       </BrowserRouter>
 
     </Container>
+    </ThemeProvider>
   );
 }
 
