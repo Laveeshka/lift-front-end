@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Tabs, Tab } from "@mui/material";
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Tabnav() {
   const [value, setValue] = useState(0);
