@@ -1,8 +1,8 @@
 import Button from '@mui/material/Button';
 
-function CommonButton({ children, color, disabled, size, variant, sx }){
+function CommonButton({ children, color, disabled, size, variant, sx, handleClick }){
     return (
-        <Button color={color} disabled={disabled} size={size} variant={variant} sx={sx}>
+        <Button onClick={handleClick} color={color} disabled={disabled} size={size} variant={variant} sx={sx}>
             {children}
         </Button>
     )

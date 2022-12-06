@@ -16,6 +16,7 @@ function EmptyContainer({
   btnSize,
   btnVariant,
   btnSx,
+  handleClick
 }) {
   return (
       <Stack spacing={stackSpacing} justifyContent="flex-start">
@@ -32,6 +33,7 @@ function EmptyContainer({
           size={btnSize}
           variant={btnVariant}
           sx={btnSx}
+          handleClick={handleClick}
         >
           {btnText}
         </CommonButton>
