@@ -18,11 +18,11 @@ function Workout() {
   const [isPaused, setIsPaused] = useState(false);
   //call useContext with WorkoutContext
   const { workout, setWorkout } = useContext(WorkoutContext);
-  const workoutsURL = "http://localhost:9292/workouts";
+  const workoutsURL = `http://localhost:9292/workouts`;
 
   const tabmenuHeight = 48;
 
-  function handleStartWorkoutClick(){
+  function handleStartWorkout(){
     //create a new workout and post to db here
     //update workout context
     fetch(workoutsURL, {
@@ -41,6 +41,14 @@ function Workout() {
   function handlePauseWorkout(){
     setIsPaused(prev => !prev)
     //console.log("isPaused is ", isPaused)
+  }
+
+  function handleDiscardWorkout(){
+    fetch(`${workoutsURL}/${workout.id}`, {
+        method: "DELETE"
+    })
+    .then(res => res.json())
+    .then(deletedWorkout => setWorkout(null))
   }
 
   return (
@@ -63,7 +71,7 @@ function Workout() {
           text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna."
           btnText="Start Workout"
           btnVariant="contained"
-          handleClick={handleStartWorkoutClick}
+          handleClick={handleStartWorkout}
         ></EmptyContainer>
       )}
       {workout ? (
@@ -87,7 +95,7 @@ function Workout() {
           justifyContent="center"
           alignItems="center"
         >
-          <CommonButton variant="text" color="heading" size="small">
+          <CommonButton variant="text" color="heading" size="small" handleClick={handleDiscardWorkout}>
             <CancelIcon
               sx={{
                 paddingRight: 0.5,
