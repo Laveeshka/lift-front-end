@@ -1,9 +1,12 @@
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { WorkoutContext } from "./../../context/workout";
 
 function Timer({ isPaused }) {
-const [time, setTime] = useState({minutes: 0, seconds: 0}) 
+//const [time, setTime] = useState({minutes: 0, seconds: 0}) 
+const { time, setTime } = useContext(WorkoutContext);
+
 
 useEffect(() => {
     const timer = setInterval(() => {

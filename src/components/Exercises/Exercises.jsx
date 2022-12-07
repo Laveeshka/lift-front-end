@@ -1,7 +1,7 @@
 import EmptyContainer from "../common/EmptyContainer/EmptyContainer";
 import runningImg from "../../illustrations/running.svg";
 
-function Exercises(){
+function Exercises({ handleAddExercise }){
     return(
         <EmptyContainer
         stackSpacing={2}
@@ -11,6 +11,7 @@ function Exercises(){
           text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna."
           btnText="Add exercise"
           btnVariant="contained"
+          handleClick={handleAddExercise}
         >
         </EmptyContainer>
     )
