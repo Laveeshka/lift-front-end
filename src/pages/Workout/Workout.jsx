@@ -10,9 +10,12 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CommonButton from "../../components/common/Button/Button";
 import Timer from "../../components/Timer/Timer";
+import Exercises from "../../components/Exercises/Exercises";
 import { WorkoutContext } from "./../../context/workout";
 
 function Workout() {
+  //isPaused state
+  const [isPaused, setIsPaused] = useState(false);
   //call useContext with WorkoutContext
   const { workout, setWorkout } = useContext(WorkoutContext);
   const workoutsURL = "http://localhost:9292/workouts";
@@ -35,6 +38,11 @@ function Workout() {
     .then( newWorkout => setWorkout(newWorkout))
   }
 
+  function handlePauseWorkout(){
+    setIsPaused(prev => !prev)
+    //console.log("isPaused is ", isPaused)
+  }
+
   return (
     <Box
       sx={{
@@ -45,8 +53,8 @@ function Workout() {
         position: "relative",
       }}
     >
-      {workout ? <Timer /> : null}
-      {workout ? null : (
+      {workout ? <Timer isPaused={isPaused}/> : null}
+      {workout ? <Exercises /> : (
         <EmptyContainer
           stackSpacing={2}
           imageAlt="dog petting"
@@ -66,8 +74,8 @@ function Workout() {
           direction="row"
           justifyContent="center"
         >
-          <FloatingActionButton color="primary" variant="circular">
-            <PauseIcon />
+          <FloatingActionButton color="primary" variant="circular" handleClick={handlePauseWorkout}>
+            {isPaused ? <PlayArrowIcon /> : <PauseIcon /> }
           </FloatingActionButton>
         </Stack>
       ) : null}
