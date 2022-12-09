@@ -7,6 +7,7 @@ import { useState } from "react";
 
 function ExercisesList({ sxList, exerciseItems }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  //const [ displayedExercises, setDisplayedExercises ] = useState(exerciseItems);
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
@@ -16,7 +17,6 @@ function ExercisesList({ sxList, exerciseItems }) {
     <>
       {" "}
       <ListItemButton
-        justifyContent="space-between"
         key={index}
         selected={selectedIndex === index + 1}
         onClick={(event) => handleListItemClick(event, index + 1)
