@@ -19,7 +19,7 @@ function Workout() {
   //isPaused state
   const [isPaused, setIsPaused] = useState(false);
   //call useContext with WorkoutContext
-  const { workout, setWorkout, time, setTime } = useContext(WorkoutContext);
+  const { workout, setWorkout, time, setTime, workoutExercises, setWorkoutExercises, exerciseSets, setExerciseSets } = useContext(WorkoutContext);
   const workoutsURL = `http://localhost:9292/workouts`;
 
   const tabmenuHeight = 48;
@@ -56,6 +56,8 @@ function Workout() {
         setWorkout(null);
         setTime({...time, seconds: time.seconds = 0});
         setTime({...time, minutes: time.minutes = 0});
+        setWorkoutExercises(null);
+        setExerciseSets(null);
     })
   }
 
@@ -102,7 +104,7 @@ function Workout() {
 
       {workout ? (
         <Stack
-          sx={{ position: "absolute", bottom: "2rem", width: "100%" }}
+          sx={{ width: "100%" }}
           direction="row"
           justifyContent="center"
           alignItems="center"

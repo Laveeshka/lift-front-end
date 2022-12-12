@@ -5,11 +5,15 @@ import Divider from "@mui/material/Divider";
 import CommonChip from "../common/Chip/CommonChip";
 import { useState, useContext } from "react";
 import { WorkoutContext } from "./../../context/workout";
+import { useNavigate } from "react-router-dom";
+
 
 function ExercisesList({ sxList, exerciseItems }) {
   const [selectedIndex, setSelectedIndex] = useState(null);
 
   const { workout, setWorkout, workoutExercises, setWorkoutExercises, exerciseSets, setExerciseSets } = useContext(WorkoutContext);
+
+  const navigate = useNavigate();
 
   const handleListItemClick = (id) => {
     console.log("id is: ", id);
@@ -46,7 +50,7 @@ function ExercisesList({ sxList, exerciseItems }) {
           setWorkoutExercises([newWorkoutExercise]);
         }
         console.log("new workout exercise is: ", newWorkoutExercise);
-        postFirstExerciseSetToDb(newWorkoutExercise.id)
+        postFirstExerciseSetToDb(newWorkoutExercise.id);
       })
       .then(err => console.warn(err))
   }
@@ -74,7 +78,8 @@ function ExercisesList({ sxList, exerciseItems }) {
         else {
           setExerciseSets([newExerciseSet])
         }
-        console.log("new exercise set is: ", newExerciseSet)
+        console.log("new exercise set is: ", newExerciseSet);
+        navigate("/workout");
       })
   }
 
