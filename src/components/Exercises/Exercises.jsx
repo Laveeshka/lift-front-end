@@ -1,9 +1,14 @@
 import EmptyContainer from "../common/EmptyContainer/EmptyContainer";
 import runningImg from "../../illustrations/running.svg";
+import { useContext } from "react";
+import { WorkoutContext } from "./../../context/workout";
 
 function Exercises({ handleAddExercise }){
-    return(
-        <EmptyContainer
+
+  const { workout, setWorkout, workoutExercises, setWorkoutExercises, exerciseSets, setExerciseSets } = useContext(WorkoutContext);
+
+    if (!workoutExercises){
+      return (<EmptyContainer
         stackSpacing={2}
           imageAlt="freestyling human"
           imageSrc={runningImg}
@@ -13,7 +18,11 @@ function Exercises({ handleAddExercise }){
           btnVariant="contained"
           handleClick={handleAddExercise}
         >
-        </EmptyContainer>
+        </EmptyContainer>)
+    }
+    return(
+        <>
+        </>
     )
 }
 

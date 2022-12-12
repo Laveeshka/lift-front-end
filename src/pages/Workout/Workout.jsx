@@ -13,6 +13,7 @@ import Timer from "../../components/Timer/Timer";
 import Exercises from "../../components/Exercises/Exercises";
 import { WorkoutContext } from "./../../context/workout";
 import { useNavigate } from "react-router-dom";
+import moment from 'moment';
 
 function Workout() {
   //isPaused state
@@ -34,7 +35,7 @@ function Workout() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            started_at: new Date().toJSON()
+            started_at: moment().format()
         })
     })
     .then(res => res.json())
