@@ -7,7 +7,6 @@ import { useState } from "react";
 
 function ExercisesList({ sxList, exerciseItems }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  //const [ displayedExercises, setDisplayedExercises ] = useState(exerciseItems);
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);

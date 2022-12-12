@@ -3,18 +3,12 @@ import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { useState } from 'react';
 
-function InputSelect({ label, items, formHelperText, onValChange }) {
-
-    //no need for state here
-    //const [val, setVal] = useState('');
+function InputSelectNew({ label, items, formHelperText, onAreaChange }) {
 
     const handleChange = (event) => {
-        //the state change was asynchronous
-        //so state change was always one step behind
-        //setVal(event.target.value);
-        onValChange(event.target.value)
+        onAreaChange(event.target.value);
+        
     }
 
     //items an array prop passed to the InputSelect component
@@ -39,4 +33,4 @@ function InputSelect({ label, items, formHelperText, onValChange }) {
     )
 }
 
-export default InputSelect;
+export default InputSelectNew;

@@ -9,25 +9,32 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import InputSelect from "./../../components/common/InputSelect/InputSelect";
 import ExercisesList from "../../components/ExercisesList/ExercisesList";
 import CommonButton from "../../components/common/Button/Button";
+import { areaConstants } from "./constants";
+import CreateExerciseDialog from "../../components/Dialog/CreateExercise";
 
 function ExistingExercises() {
   const listStyles = {
     width: "100%",
   };
 
+  const exercisesURL = "http://localhost:9292/exercises";
+
   const { exercises, setExercises, isExercisesLoaded } =
     useContext(ExercisesContext);
+
   const [displayedExercises, setDisplayedExercises] = useState(exercises);
+  const [open, setOpen] = useState(false);
+
   const navigate = useNavigate();
-  let distinctAreas;
   let filteredExercises;
+
 
   if (isExercisesLoaded) {
     console.log("exercises are ", exercises);
-    const areas = exercises.map((exercise) => exercise.area);
-    distinctAreas = areas.filter(
-      (area, index) => areas.indexOf(area) === index
-    );
+    // const areas = exercises.map((exercise) => exercise.area);
+    // distinctAreas = areas.filter(
+    //   (area, index) => areas.indexOf(area) === index
+    // );
   }
 
   function handleClickBackButton() {
@@ -52,6 +59,36 @@ function ExistingExercises() {
     }
   }
 
+  function handleClickOpen() {
+    setOpen(true);
+  }
+
+  function handleClose(){
+    setOpen(false);
+  }
+
+  function addNewExercise(name, area){
+    //POST request
+    //update exercises context
+    fetch(exercisesURL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name,
+            area
+        })
+    })
+        .then(res => res.json())
+        .then(newExercise => {
+            const updatedExercises = [...exercises, newExercise];
+            setExercises(updatedExercises);
+            setDisplayedExercises(updatedExercises);
+        })
+        .catch(err => console.warn(err))
+  }
+
   return (
     <Box
       sx={{
@@ -73,7 +110,7 @@ function ExistingExercises() {
         <InputSelect
           label="Targeted area"
           formHelperText="Filter by targeted area"
-          items={distinctAreas}
+          items={areaConstants}
           onValChange={onValChange}
         />
       ) : null}
@@ -84,8 +121,9 @@ function ExistingExercises() {
       <Typography variant="h6" sx={{ textAlign: "center" }}>
           Try something different?
         </Typography>
-        <CommonButton color="heading" variant="outlined">Create Exercise</CommonButton>
+        <CommonButton color="heading" variant="outlined" handleClick={handleClickOpen}>Create Exercise</CommonButton>
       </Stack>) : null }
+      { isExercisesLoaded ? <CreateExerciseDialog open={open} onClose={handleClose} dialogTitle="Create Exercise" areaItems={areaConstants} formHelperText="Select targeted area" addNewExercise={addNewExercise}></CreateExerciseDialog> : null }
     </Box>
   );
 }

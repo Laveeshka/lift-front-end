@@ -1,0 +1,1 @@
+export const areaConstants = ["Triceps", "Back", "Chest", "Legs", "Glutes", "Hamstrings", "Abs", "Shoulders"]
