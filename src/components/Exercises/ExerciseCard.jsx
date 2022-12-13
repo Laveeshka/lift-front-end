@@ -10,7 +10,7 @@ import ExerciseSet from './ExerciseSet';
 import { useState, useContext } from 'react';
 import { ExercisesContext } from './../../context/exercises';
 
-function ExerciseCard({workoutExercise, exerciseSets, handleRemoveWorkoutExercise}){
+function ExerciseCard({workoutExercise, exerciseSets, handleRemoveWorkoutExercise, handleAddSet}){
 
     const { exercises } = useContext(ExercisesContext);
 
@@ -20,6 +20,10 @@ function ExerciseCard({workoutExercise, exerciseSets, handleRemoveWorkoutExercis
 
     function handleRemoveExerciseClick(){
         handleRemoveWorkoutExercise(workoutExercise);
+    }
+
+    function handleAddSetClick(){
+        handleAddSet(workoutExercise);
     }
 
     return(
@@ -36,7 +40,7 @@ function ExerciseCard({workoutExercise, exerciseSets, handleRemoveWorkoutExercis
                 <Divider />
                 <Stack direction="row" spacing={1} justifyContent="space-around">
                     <CommonButton color="heading" variant="outlined" size="small" handleClick={handleRemoveExerciseClick}>Remove exercise</CommonButton>
-                    <CommonButton color="secondary" variant="contained" size="small">Add set</CommonButton>
+                    <CommonButton color="secondary" variant="contained" size="small" handleClick={handleAddSetClick}>Add set</CommonButton>
                 </Stack>
             </Stack>
         </Card>

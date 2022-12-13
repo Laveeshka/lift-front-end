@@ -35,6 +35,27 @@ function Exercises({ handleAddExercise }){
       })
   }
 
+  function handleAddSet(workoutExercise){
+    const workoutExerciseId = workoutExercise.id;
+    fetch(`http://localhost:9292/workout_sets`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        workout_exercise_id: workoutExerciseId,
+        reps: 0,
+        weight: 0,
+        completed: false
+      })
+    })
+      .then(res => res.json())
+      .then(newExerciseSet => {
+        const updatedExerciseSets = [...exerciseSets, newExerciseSet];
+        setExerciseSets(updatedExerciseSets);
+      })
+  }
+
     // if (!workoutExercises){
     //   return (<EmptyContainer
     //     stackSpacing={2}
@@ -57,7 +78,7 @@ function Exercises({ handleAddExercise }){
         //only pass the exercise sets associated to one particular workout exercise
         //how?
         const sets = exerciseSets.filter((exerciseSet) => exerciseSet.workout_exercise_id === workoutExercise.id)
-       return <ExerciseCard key={index} workoutExercise={workoutExercise} exerciseSets={sets} handleRemoveWorkoutExercise={handleRemoveWorkoutExercise}></ExerciseCard>
+       return <ExerciseCard key={index} workoutExercise={workoutExercise} exerciseSets={sets} handleRemoveWorkoutExercise={handleRemoveWorkoutExercise} handleAddSet={handleAddSet}></ExerciseCard>
       })
     }
 
