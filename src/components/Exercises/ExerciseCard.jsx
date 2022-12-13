@@ -10,7 +10,7 @@ import ExerciseSet from './ExerciseSet';
 import { useState, useContext } from 'react';
 import { ExercisesContext } from './../../context/exercises';
 
-function ExerciseCard({workoutExercise, exerciseSets}){
+function ExerciseCard({workoutExercise, exerciseSets, handleRemoveWorkoutExercise}){
 
     const { exercises } = useContext(ExercisesContext);
 
@@ -18,24 +18,27 @@ function ExerciseCard({workoutExercise, exerciseSets}){
 
     const repsComponents = exerciseSets.map((exerciseSet, index) => <ExerciseSet key={index} set={exerciseSet} setNumber={index+1}></ExerciseSet>)
 
+    function handleRemoveExerciseClick(){
+        handleRemoveWorkoutExercise(workoutExercise);
+    }
 
     return(
-        <Card>
+        <Card sx={{ mb: 1.5, mt: 1 }}>
             <CardContent>
-                <Stack>
+                <Stack direction="row" spacing={1}>
                     <Typography variant="subtitle1">{exercise.name}</Typography>
                     <CommonChip label={exercise.area}/>
                 </Stack>
             </CardContent>
             <Divider />
-            <CardActions>
+            <Stack direction="column" spacing={2} sx={{mt: 1, mb: 1}}>
                 {repsComponents}
                 <Divider />
-                <Stack>
-                    <CommonButton></CommonButton>
-                    <CommonButton></CommonButton>
+                <Stack direction="row" spacing={1} justifyContent="space-around">
+                    <CommonButton color="heading" variant="outlined" size="small" handleClick={handleRemoveExerciseClick}>Remove exercise</CommonButton>
+                    <CommonButton color="secondary" variant="contained" size="small">Add set</CommonButton>
                 </Stack>
-            </CardActions>
+            </Stack>
         </Card>
     )
 }

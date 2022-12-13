@@ -5,6 +5,9 @@ export const liftTheme = createTheme({
         primary: {
             main: '#ff0056'
         },
+        secondary: {
+            main: '#DEDEDE'
+        },
         text: {
             main: '#4e5262'
         },

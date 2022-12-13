@@ -9,11 +9,13 @@ function CommonTextField({
   size,
   inputValue,
   handleChange,
-  defaultValue
+  defaultValue,
+  sx
 }) {
   return (
     <TextField
       required
+      sx={sx}
       id={id}
       label={label}
       variant={variant}

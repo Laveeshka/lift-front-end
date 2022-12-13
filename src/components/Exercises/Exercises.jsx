@@ -19,8 +19,54 @@ function Exercises({ handleAddExercise }){
     navigate("/workout/exercises");
   }
 
-    if (!workoutExercises){
-      return (<EmptyContainer
+  function handleRemoveWorkoutExercise(workoutExerciseToRemove){
+    const id = workoutExerciseToRemove.id;
+    fetch(`http://localhost:9292/workout_exercises/${id}`, {
+      method: "DELETE"
+    })
+      .then(res => res.json())
+      .then(deletedWorkoutExercise => {
+        const updatedWorkoutExercises = workoutExercises.filter(workoutExercise => workoutExercise.id !== id);
+        setWorkoutExercises(updatedWorkoutExercises);
+
+        const updatedExerciseSets = exerciseSets.filter(exerciseSet => exerciseSet.workout_exercise_id !== id);
+        setExerciseSets(updatedExerciseSets);
+
+      })
+  }
+
+    // if (!workoutExercises){
+    //   return (<EmptyContainer
+    //     stackSpacing={2}
+    //       imageAlt="freestyling human"
+    //       imageSrc={runningImg}
+    //       h3text="Are we freestyling?"
+    //       text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna."
+    //       btnText="Add exercise"
+    //       btnVariant="contained"
+    //       handleClick={handleAddExercise}
+    //     >
+    //     </EmptyContainer>)
+    // }
+
+ 
+
+    if(workoutExercises){
+      console.log(workoutExercises);
+      exerciseCards = workoutExercises.map((workoutExercise, index) => {
+        //only pass the exercise sets associated to one particular workout exercise
+        //how?
+        const sets = exerciseSets.filter((exerciseSet) => exerciseSet.workout_exercise_id === workoutExercise.id)
+       return <ExerciseCard key={index} workoutExercise={workoutExercise} exerciseSets={sets} handleRemoveWorkoutExercise={handleRemoveWorkoutExercise}></ExerciseCard>
+      })
+    }
+
+    return(
+        <Box>
+        { workoutExercises ? <Stack direction="row" spacing={1}>
+          <CommonButton variant="contained" color="primary" handleClick={handleAddExercise}>Add exercise</CommonButton>
+          <CommonButton variant="outlined" color="heading">End workout</CommonButton>
+        </Stack> : <EmptyContainer
         stackSpacing={2}
           imageAlt="freestyling human"
           imageSrc={runningImg}
@@ -30,25 +76,7 @@ function Exercises({ handleAddExercise }){
           btnVariant="contained"
           handleClick={handleAddExercise}
         >
-        </EmptyContainer>)
-    }
-
-    if(workoutExercises){
-      console.log(workoutExercises);
-      exerciseCards = workoutExercises.map((workoutExercise, index) => {
-        //only pass the exercise sets associated to one particular workout exercise
-        //how?
-        const sets = exerciseSets.filter((exerciseSet) => exerciseSet.workout_exercise_id === workoutExercise.id)
-       return <ExerciseCard key={index} workoutExercise={workoutExercise} exerciseSets={sets}></ExerciseCard>
-      })
-    }
-
-    return(
-        <Box>
-        { workoutExercises ? <Stack>
-          <CommonButton variant="contained" color="primary" handleClick={handleAddExercise}>Add exercise</CommonButton>
-          <CommonButton variant="outlined" color="heading">End workout</CommonButton>
-        </Stack> : null }
+        </EmptyContainer> }
         { workoutExercises ? exerciseCards : null }
         </Box>
     )
