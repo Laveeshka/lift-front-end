@@ -1,16 +1,21 @@
 import EmptyContainer from "../common/EmptyContainer/EmptyContainer";
 import runningImg from "../../illustrations/running.svg";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { WorkoutContext } from "./../../context/workout";
 import Stack from "@mui/material/Stack";
 import CommonButton from "../../components/common/Button/Button";
 import ExerciseCard from "./ExerciseCard";
+import EndWorkoutDialog from "../Dialog/EndWorkout";
 import { Box } from "@mui/material";
+import moment from 'moment';
 import { useNavigate } from "react-router-dom";
 
 function Exercises({ handleAddExercise }){
 
-  const { workout, setWorkout, workoutExercises, setWorkoutExercises, exerciseSets, setExerciseSets } = useContext(WorkoutContext);
+  const { time, setTime, workout, setWorkout, workoutExercises, setWorkoutExercises, exerciseSets, setExerciseSets } = useContext(WorkoutContext);
+
+  //set up state for opening and closing the End Workout modal
+  const [open, setOpen] = useState(false);
 
   let exerciseCards;
   const navigate = useNavigate();
@@ -56,6 +61,39 @@ function Exercises({ handleAddExercise }){
       })
   }
 
+  function handleEndWorkout(){
+    setOpen(true);
+  }
+
+  function handleClose(){
+    setOpen(false);
+  }
+
+  function handleUpdateWorkout(){
+      //PATCH request for workout, update completed_at attribute
+      const workoutId = workout.id;
+      fetch(`http://localhost:9292/workouts/${workoutId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json"
+        }, 
+        body: JSON.stringify({
+          completed_at: moment().format()
+        })
+      })
+        .then(res => res.json())
+        .then(updatedWorkout => {
+          //update workouts context here
+          //end of update workouts context
+          setWorkout(null);
+          setWorkoutExercises(null);
+          setExerciseSets(null);
+          setTime({...time, seconds: time.seconds = 0});
+          setTime({...time, minutes: time.minutes = 0});
+          console.log("Workout has ended!");
+        })
+  }
+
 
     // if (!workoutExercises){
     //   return (<EmptyContainer
@@ -87,7 +125,7 @@ function Exercises({ handleAddExercise }){
         <Box>
         { workoutExercises ? <Stack direction="row" spacing={1}>
           <CommonButton variant="contained" color="primary" handleClick={handleAddExercise}>Add exercise</CommonButton>
-          <CommonButton variant="outlined" color="heading">End workout</CommonButton>
+          <CommonButton variant="outlined" color="heading" handleClick={handleEndWorkout}>End workout</CommonButton>
         </Stack> : <EmptyContainer
         stackSpacing={2}
           imageAlt="freestyling human"
@@ -100,6 +138,7 @@ function Exercises({ handleAddExercise }){
         >
         </EmptyContainer> }
         { workoutExercises ? exerciseCards : null }
+        { workoutExercises ? <EndWorkoutDialog open={open} onClose={handleClose} dialogTitle="End Workout" handleUpdateWorkout={handleUpdateWorkout}/> : null}
         </Box>
     )
 }
