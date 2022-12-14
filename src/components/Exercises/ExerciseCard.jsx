@@ -7,16 +7,16 @@ import CommonChip from "../common/Chip/CommonChip";
 import Divider from "@mui/material/Divider";
 import CommonButton from "../../components/common/Button/Button";
 import ExerciseSet from './ExerciseSet';
-import { useState, useContext } from 'react';
+import {  useContext } from 'react';
 import { ExercisesContext } from './../../context/exercises';
 
-function ExerciseCard({workoutExercise, exerciseSets, handleRemoveWorkoutExercise, handleAddSet}){
+function ExerciseCard({workoutExercise, exerciseSets, setExerciseSets, handleRemoveWorkoutExercise, handleAddSet}){
 
     const { exercises } = useContext(ExercisesContext);
 
     const exercise = exercises.find((exercise) => exercise.id === workoutExercise.exercise_id)
 
-    const repsComponents = exerciseSets.map((exerciseSet, index) => <ExerciseSet key={index} set={exerciseSet} setNumber={index+1}></ExerciseSet>)
+    const repsComponents = exerciseSets.map((exerciseSet, index) => <ExerciseSet key={index} set={exerciseSet} setNumber={index+1} handleDeleteSetClick={handleDeleteSet}></ExerciseSet>)
 
     function handleRemoveExerciseClick(){
         handleRemoveWorkoutExercise(workoutExercise);
@@ -24,6 +24,19 @@ function ExerciseCard({workoutExercise, exerciseSets, handleRemoveWorkoutExercis
 
     function handleAddSetClick(){
         handleAddSet(workoutExercise);
+    }
+
+    function handleDeleteSet(set){
+       //delete set logic here
+       const setId = set.id;
+       fetch(`http://localhost:9292/workout_sets/${setId}`, {
+        method: "DELETE"
+       })
+        .then(res => res.json())
+        .then(deletedSet => {
+            const updatedExerciseSets = exerciseSets.filter((exerciseSet) => exerciseSet.id !== setId);
+            setExerciseSets(updatedExerciseSets);
+        })
     }
 
     return(

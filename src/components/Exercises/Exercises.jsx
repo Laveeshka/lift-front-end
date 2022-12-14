@@ -56,6 +56,7 @@ function Exercises({ handleAddExercise }){
       })
   }
 
+
     // if (!workoutExercises){
     //   return (<EmptyContainer
     //     stackSpacing={2}
@@ -78,7 +79,7 @@ function Exercises({ handleAddExercise }){
         //only pass the exercise sets associated to one particular workout exercise
         //how?
         const sets = exerciseSets.filter((exerciseSet) => exerciseSet.workout_exercise_id === workoutExercise.id)
-       return <ExerciseCard key={index} workoutExercise={workoutExercise} exerciseSets={sets} handleRemoveWorkoutExercise={handleRemoveWorkoutExercise} handleAddSet={handleAddSet}></ExerciseCard>
+       return <ExerciseCard key={index} workoutExercise={workoutExercise} exerciseSets={sets} setExerciseSets={setExerciseSets} handleRemoveWorkoutExercise={handleRemoveWorkoutExercise} handleAddSet={handleAddSet}></ExerciseCard>
       })
     }
 
