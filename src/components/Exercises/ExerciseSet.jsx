@@ -7,13 +7,63 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useState } from "react";
 
-function ExerciseSet({ set, setNumber, handleDeleteSetClick }) {
+function ExerciseSet({
+  set,
+  setNumber,
+  handleDeleteSetClick,
+  updatedExerciseSetsInContext
+}) {
   const [completed, setCompleted] = useState(false);
   const [reps, setReps] = useState(0);
   const [weight, setWeight] = useState(0);
 
   function handleDeleteClick() {
-    handleDeleteSetClick(set)
+    handleDeleteSetClick(set);
+  }
+
+  function handleRepsValueChange(e) {
+    //update reps state
+    //do not update state if the input field is empty
+    if (e.target.value) {
+      setReps(e.target.value);
+      console.log("reps are: ", reps);
+    }
+  }
+
+  function handleWeightValueChange(e) {
+    //update weight state
+    //do not update state if the input field is empty
+    if (e.target.value){
+        setWeight(e.target.value);
+        console.log("weight is: ", weight);
+    }
+    
+  }
+
+  function handleCompleteSetClick() {
+    //on complete icon button click, toggle completed state
+    //PATCH request for set
+    setCompleted(prev => !prev);
+    updateSetInDB(set);
+  }
+
+  function updateSetInDB(set){
+    const setId = set.id;
+    fetch(`http://localhost:9292/workout_sets/${setId}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            reps,
+            weight,
+            completed,
+        })
+    })
+        .then(res => res.json())
+        .then(updatedSet => {
+            updatedExerciseSetsInContext(updatedSet);
+        })
   }
 
   return (
@@ -34,6 +84,7 @@ function ExerciseSet({ set, setNumber, handleDeleteSetClick }) {
         type="number"
         size="small"
         defaultValue={set.reps}
+        handleChange={handleRepsValueChange}
       />
       <CommonTextField
         id={`weight-${setNumber}`}
@@ -43,11 +94,12 @@ function ExerciseSet({ set, setNumber, handleDeleteSetClick }) {
         type="number"
         size="small"
         defaultValue={set.weight}
+        handleChange={handleWeightValueChange}
       />
       <CommonIconButton handleClick={handleDeleteClick}>
         <DeleteForeverIcon />
       </CommonIconButton>
-      <CommonIconButton>
+      <CommonIconButton handleClick={handleCompleteSetClick}>
         {completed ? <CheckCircleIcon /> : <CheckCircleOutlineIcon />}
       </CommonIconButton>
     </Stack>
