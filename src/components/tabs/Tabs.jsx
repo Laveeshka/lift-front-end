@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function Tabnav() {
   const [value, setValue] = useState(0);
 
-  
+
   return (
       <Tabs
         centered
@@ -13,8 +13,8 @@ function Tabnav() {
         value={value}
         onChange={(e, val) => setValue(val)}
       >
-        <Tab component={Link} label="Workout" to="/workout"/>
-        <Tab component={Link} label="Summary" to="/summary"/>
+        <Tab component={Link} label="Workout" to="/workout" />
+        <Tab component={Link} label="Summary" to="/summary" />
       </Tabs>
   );
 }

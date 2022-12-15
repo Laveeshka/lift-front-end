@@ -6,16 +6,19 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { WorkoutProvider } from "./context/workout";
 import { ExercisesProvider } from "./context/exercises";
+import { WorkoutsProvider } from "./context/workouts";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <WorkoutProvider>
-    <ExercisesProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ExercisesProvider>
-  </WorkoutProvider>
+  <WorkoutsProvider>
+    <WorkoutProvider>
+      <ExercisesProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ExercisesProvider>
+    </WorkoutProvider>
+  </WorkoutsProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

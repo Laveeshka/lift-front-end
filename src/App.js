@@ -8,10 +8,15 @@ import ExistingExercises from "./pages/ExistingExercises/ExistingExercises";
 import { ThemeProvider } from "@mui/material/styles";
 import { liftTheme } from "./liftTheme";
 import { WorkoutProvider } from "./context/workout";
+import { useState } from "react";
 
 function App() {
   let match = useMatch("/workout/exercises");
+  
   console.log(match);
+
+
+  
 
   return (
     <ThemeProvider theme={liftTheme}>
