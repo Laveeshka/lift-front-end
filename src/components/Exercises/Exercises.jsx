@@ -2,6 +2,7 @@ import EmptyContainer from "../common/EmptyContainer/EmptyContainer";
 import runningImg from "../../illustrations/running.svg";
 import { useContext, useState } from "react";
 import { WorkoutContext } from "./../../context/workout";
+import { WorkoutsContext } from "../../context/workouts";
 import Stack from "@mui/material/Stack";
 import CommonButton from "../../components/common/Button/Button";
 import ExerciseCard from "./ExerciseCard";
@@ -13,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 function Exercises({ handleAddExercise }){
 
   const { time, setTime, workout, setWorkout, workoutExercises, setWorkoutExercises, exerciseSets, setExerciseSets } = useContext(WorkoutContext);
+  const { workouts, setWorkouts } = useContext(WorkoutsContext);
 
   //set up state for opening and closing the End Workout modal
   const [open, setOpen] = useState(false);
@@ -84,12 +86,16 @@ function Exercises({ handleAddExercise }){
         .then(res => res.json())
         .then(updatedWorkout => {
           //update workouts context here
+          console.log("updated workout is: ", updatedWorkout);
+          const updatedWorkouts = [...workouts, updatedWorkout];
+          setWorkouts(updatedWorkouts);
           //end of update workouts context
           setWorkout(null);
           setWorkoutExercises(null);
           setExerciseSets(null);
           setTime({...time, seconds: time.seconds = 0});
           setTime({...time, minutes: time.minutes = 0});
+
           console.log("Workout has ended!");
         })
   }

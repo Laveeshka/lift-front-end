@@ -28,7 +28,6 @@ function ExistingExercises() {
   const navigate = useNavigate();
   let filteredExercises;
 
-
   if (isExercisesLoaded) {
     console.log("exercises are ", exercises);
     // const areas = exercises.map((exercise) => exercise.area);
@@ -63,30 +62,30 @@ function ExistingExercises() {
     setOpen(true);
   }
 
-  function handleClose(){
+  function handleClose() {
     setOpen(false);
   }
 
-  function addNewExercise(name, area){
+  function addNewExercise(name, area) {
     //POST request
     //update exercises context
     fetch(exercisesURL, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            name,
-            area
-        })
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        area,
+      }),
     })
-        .then(res => res.json())
-        .then(newExercise => {
-            const updatedExercises = [...exercises, newExercise];
-            setExercises(updatedExercises);
-            setDisplayedExercises(updatedExercises);
-        })
-        .catch(err => console.warn(err))
+      .then((res) => res.json())
+      .then((newExercise) => {
+        const updatedExercises = [...exercises, newExercise];
+        setExercises(updatedExercises);
+        setDisplayedExercises(updatedExercises);
+      })
+      .catch((err) => console.warn(err));
   }
 
   return (
@@ -117,13 +116,30 @@ function ExistingExercises() {
       {isExercisesLoaded ? (
         <ExercisesList sxList={listStyles} exerciseItems={displayedExercises} />
       ) : null}
-      {isExercisesLoaded ? (<Stack spacing={1} justifyContent="flex-start">
-      <Typography variant="h6" sx={{ textAlign: "center" }}>
-          Try something different?
-        </Typography>
-        <CommonButton color="heading" variant="outlined" handleClick={handleClickOpen}>Create Exercise</CommonButton>
-      </Stack>) : null }
-      { isExercisesLoaded ? <CreateExerciseDialog open={open} onClose={handleClose} dialogTitle="Create Exercise" areaItems={areaConstants} formHelperText="Select targeted area" addNewExercise={addNewExercise}></CreateExerciseDialog> : null }
+      {isExercisesLoaded ? (
+        <Stack spacing={1} justifyContent="flex-start">
+          <Typography variant="h6" sx={{ textAlign: "center" }}>
+            Try something different?
+          </Typography>
+          <CommonButton
+            color="heading"
+            variant="outlined"
+            handleClick={handleClickOpen}
+          >
+            Create Exercise
+          </CommonButton>
+        </Stack>
+      ) : null}
+      {isExercisesLoaded ? (
+        <CreateExerciseDialog
+          open={open}
+          onClose={handleClose}
+          dialogTitle="Create Exercise"
+          areaItems={areaConstants}
+          formHelperText="Select targeted area"
+          addNewExercise={addNewExercise}
+        ></CreateExerciseDialog>
+      ) : null}
     </Box>
   );
 }

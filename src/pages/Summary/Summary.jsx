@@ -4,6 +4,7 @@ import { WorkoutsContext } from "./../../context/workouts";
 import EmptyContainer from "../../components/common/EmptyContainer/EmptyContainer";
 import levitateImg from "../../illustrations/levitate.svg";
 import { useNavigate } from "react-router-dom";
+import WorkoutAccordion from "../../components/Accordion/Accordion";
 
 function Summary() {
   const { workouts, setWorkouts } = useContext(WorkoutsContext);
@@ -13,7 +14,7 @@ function Summary() {
 
     useEffect(() => {
         isWorkoutsNotEmpty();
-    }, [check])
+    }, [check, workouts])
 
   const isWorkoutsNotEmpty = () => {
     setCheck(workouts.length !== 0 ? true : false);
@@ -23,6 +24,8 @@ function Summary() {
   function handleStartWorkout(){
     navigate("/");
   }
+
+  const accordionComponents = workouts.map((workout => <WorkoutAccordion workout={workout}/>))
 
   return (
     <Box
@@ -34,7 +37,7 @@ function Summary() {
         position: "relative",
       }}
     >
-        {check ? null : <EmptyContainer 
+        {check ? accordionComponents : <EmptyContainer 
             stackSpacing={2}
           imageAlt="Lounging lady"
           imageSrc={levitateImg}

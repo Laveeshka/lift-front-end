@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function ExerciseSet({
   set,
@@ -16,6 +16,10 @@ function ExerciseSet({
   const [completed, setCompleted] = useState(false);
   const [reps, setReps] = useState(0);
   const [weight, setWeight] = useState(0);
+
+  useEffect(() => {
+    updateSetInDB(set);
+  }, [completed])
 
   function handleDeleteClick() {
     handleDeleteSetClick(set);
@@ -44,7 +48,7 @@ function ExerciseSet({
     //on complete icon button click, toggle completed state
     //PATCH request for set
     setCompleted(prev => !prev);
-    updateSetInDB(set);
+    //updateSetInDB(set);
   }
 
   function updateSetInDB(set){
