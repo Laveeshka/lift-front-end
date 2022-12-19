@@ -21,7 +21,7 @@ function InputSelect({ label, items, formHelperText, onValChange }) {
     const menuItems = items.map((item, index) => <MenuItem key={index+1} value={item}>{item}</MenuItem>)
 
     return (
-        <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <FormControl sx={{ m: 1, width: "100%" }}>
             <InputLabel id={`simple-select-helper-${label}-label`}>{label}</InputLabel>
             <Select
                 labelId={`simple-select-helper-${label}-label`}

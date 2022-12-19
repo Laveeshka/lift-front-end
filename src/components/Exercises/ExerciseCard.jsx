@@ -16,7 +16,10 @@ function ExerciseCard({workoutExercise, exerciseSets, setExerciseSets, handleRem
 
     const exercise = exercises.find((exercise) => exercise.id === workoutExercise.exercise_id)
 
-    const repsComponents = exerciseSets.map((exerciseSet, index) => <ExerciseSet key={index} set={exerciseSet} setNumber={index+1} handleDeleteSetClick={handleDeleteSet} updatedExerciseSetsInContext={updatedExerciseSetsInContext}></ExerciseSet>)
+    //new code
+    const setsForWorkoutExercise = exerciseSets.filter((set) => set.workout_exercise_id === workoutExercise.id)
+
+    const repsComponents = setsForWorkoutExercise.map((exerciseSet, index) => <ExerciseSet key={index} set={exerciseSet} setNumber={index+1} handleDeleteSetClick={handleDeleteSet} updatedExerciseSetsInContext={updatedExerciseSetsInContext}></ExerciseSet>)
 
     function handleRemoveExerciseClick(){
         handleRemoveWorkoutExercise(workoutExercise);

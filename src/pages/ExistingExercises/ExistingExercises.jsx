@@ -98,26 +98,34 @@ function ExistingExercises() {
         position: "relative",
       }}
     >
-      <CommonIconButton
-        color="heading"
-        size="small"
-        handleClick={handleClickBackButton}
-      >
-        <ArrowBackIosIcon />
-      </CommonIconButton>
-      {isExercisesLoaded ? (
-        <InputSelect
-          label="Targeted area"
-          formHelperText="Filter by targeted area"
-          items={areaConstants}
-          onValChange={onValChange}
-        />
-      ) : null}
+      <Box sx={{ width: "100%", mb: 2 }}>
+        <Stack direction="row" justifyContent="flex-start">
+          <CommonIconButton
+            color="heading"
+            size="small"
+            handleClick={handleClickBackButton}
+          >
+            <ArrowBackIosIcon />
+          </CommonIconButton>
+          <Typography variant="h6">Existing Exercises</Typography>
+        </Stack>
+      </Box>
+      <Box sx={{ width: "100%" }}>
+        {isExercisesLoaded ? (
+          <InputSelect
+            label="Targeted area"
+            formHelperText="Filter by targeted area"
+            items={areaConstants}
+            onValChange={onValChange}
+          />
+        ) : null}
+      </Box>
+
       {isExercisesLoaded ? (
         <ExercisesList sxList={listStyles} exerciseItems={displayedExercises} />
       ) : null}
       {isExercisesLoaded ? (
-        <Stack spacing={1} justifyContent="flex-start">
+        <Stack sx={{mt: 2}} spacing={1} justifyContent="flex-start">
           <Typography variant="h6" sx={{ textAlign: "center" }}>
             Try something different?
           </Typography>

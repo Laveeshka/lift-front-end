@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 function ExercisesList({ sxList, exerciseItems }) {
   const [selectedIndex, setSelectedIndex] = useState(null);
 
-  const { workout, setWorkout, workoutExercises, setWorkoutExercises, exerciseSets, setExerciseSets } = useContext(WorkoutContext);
+  const { workout, workoutExercises, setWorkoutExercises, exerciseSets, setExerciseSets } = useContext(WorkoutContext);
 
   const navigate = useNavigate();
 
@@ -24,9 +24,6 @@ function ExercisesList({ sxList, exerciseItems }) {
     postWorkoutExerciseToDb(id);
   };
 
-  // const updateSelectedIndex = async (id) => {
-  //   await setSelectedIndex(id)
-  // }
 
   const postWorkoutExerciseToDb = (id) => {
     //POST request for workout exercise
@@ -37,7 +34,7 @@ function ExercisesList({ sxList, exerciseItems }) {
       },
       body: JSON.stringify({
         workout_id: workout.id,
-        exercise_id: id,
+        exercise_id: id
       })
     })
       .then(res => res.json())
@@ -56,6 +53,7 @@ function ExercisesList({ sxList, exerciseItems }) {
   }
 
   const postFirstExerciseSetToDb = (workoutExerciseId) => {
+    console.log("workout exercise is: ", workoutExerciseId);
     //create first exercise set with default values
     fetch("http://localhost:9292/workout_sets", {
       method: "POST",
@@ -71,14 +69,16 @@ function ExercisesList({ sxList, exerciseItems }) {
     })
       .then(res => res.json())
       .then(newExerciseSet => {
-        if (exerciseSets){
-          const updatedExerciseSets = [...exerciseSets, newExerciseSet]
+        if (exerciseSets !== null){
+          let updatedExerciseSets = exerciseSets;
+          updatedExerciseSets.push(newExerciseSet)
           setExerciseSets(updatedExerciseSets)
+          //console.log("updated exercise sets are: ", updatedExerciseSets);
         }
         else {
           setExerciseSets([newExerciseSet])
         }
-        console.log("new exercise set is: ", newExerciseSet);
+        //console.log("new exercise set is: ", newExerciseSet);
         navigate("/workout");
       })
   }

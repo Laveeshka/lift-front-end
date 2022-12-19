@@ -1,6 +1,6 @@
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { useState, useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import { WorkoutContext } from "./../../context/workout";
 
 function Timer({ isPaused }) {
@@ -11,17 +11,17 @@ const { time, setTime } = useContext(WorkoutContext);
 useEffect(() => {
     const timer = setInterval(() => {
         if (isPaused === false) {
-            console.log("isPaused is ", isPaused)
+            //console.log("isPaused is ", isPaused)
             if (time.seconds === 59){
                 setTime({...time, minutes: ++time.minutes})
                 setTime({...time, seconds: time.seconds = 0})
-                console.log("minutes are ", time.minutes)
-                console.log("seconds are ", time.seconds)
+                // console.log("minutes are ", time.minutes)
+                // console.log("seconds are ", time.seconds)
             } else if (time.seconds !== 59 ){
                 setTime({...time, seconds: ++time.seconds})
-                console.log("seconds are not 59 yet")
-                console.log("minutes are ", time.minutes)
-                console.log("seconds are ", time.seconds)
+                // console.log("seconds are not 59 yet")
+                // console.log("minutes are ", time.minutes)
+                // console.log("seconds are ", time.seconds)
             }
         }
        
