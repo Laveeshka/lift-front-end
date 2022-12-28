@@ -17,7 +17,7 @@ function ExistingExercises() {
     width: "100%",
   };
 
-  const exercisesURL = `http://${process.env.REACT_APP_SINATRA_API_BASE_URL}/exercises`;
+  const exercisesURL = `${process.env.REACT_APP_SINATRA_API_BASE_URL}/exercises`;
 
   const { exercises, setExercises, isExercisesLoaded } =
     useContext(ExercisesContext);

@@ -28,7 +28,7 @@ function Exercises(){
 
   function handleRemoveWorkoutExercise(workoutExerciseToRemove){
     const id = workoutExerciseToRemove.id;
-    fetch(`http://${process.env.REACT_APP_SINATRA_API_BASE_URL}/workout_exercises/${id}`, {
+    fetch(`${process.env.REACT_APP_SINATRA_API_BASE_URL}/workout_exercises/${id}`, {
       method: "DELETE"
     })
       .then(res => res.json())
@@ -44,7 +44,7 @@ function Exercises(){
 
   function handleAddSet(workoutExercise){
     const workoutExerciseId = workoutExercise.id;
-    fetch(`http://${process.env.REACT_APP_SINATRA_API_BASE_URL}/workout_sets`, {
+    fetch(`${process.env.REACT_APP_SINATRA_API_BASE_URL}/workout_sets`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -75,7 +75,7 @@ function Exercises(){
   function handleUpdateWorkout(){
       //PATCH request for workout, update completed_at attribute
       const workoutId = workout.id;
-      fetch(`http://${process.env.REACT_APP_SINATRA_API_BASE_URL}/workouts/${workoutId}`, {
+      fetch(`${process.env.REACT_APP_SINATRA_API_BASE_URL}/workouts/${workoutId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json"

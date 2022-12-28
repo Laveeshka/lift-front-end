@@ -27,7 +27,7 @@ function ExercisesList({ sxList, exerciseItems }) {
 
   const postWorkoutExerciseToDb = (id) => {
     //POST request for workout exercise
-    fetch(`http://${process.env.REACT_APP_SINATRA_API_BASE_URL}/workout_exercises`, {
+    fetch(`${process.env.REACT_APP_SINATRA_API_BASE_URL}/workout_exercises`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -55,7 +55,7 @@ function ExercisesList({ sxList, exerciseItems }) {
   const postFirstExerciseSetToDb = (workoutExerciseId) => {
     console.log("workout exercise is: ", workoutExerciseId);
     //create first exercise set with default values
-    fetch(`http://${process.env.REACT_APP_SINATRA_API_BASE_URL}/workout_sets`, {
+    fetch(`${process.env.REACT_APP_SINATRA_API_BASE_URL}/workout_sets`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
