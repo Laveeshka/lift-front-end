@@ -6,7 +6,7 @@ function ExercisesProvider({ children }) {
   const [exercises, setExercises] = useState([]);
   const [isExercisesLoaded, setIsExercisesLoaded] = useState(false);
 
-  const exercisesURL = "http://localhost:9292/exercises";
+  const exercisesURL = `http://${process.env.REACT_APP_SINATRA_API_BASE_URL}/exercises`;
 
   useEffect(()=> {
     setIsExercisesLoaded(false);

@@ -17,7 +17,7 @@ function ExistingExercises() {
     width: "100%",
   };
 
-  const exercisesURL = "http://localhost:9292/exercises";
+  const exercisesURL = `http://${process.env.REACT_APP_SINATRA_API_BASE_URL}/exercises`;
 
   const { exercises, setExercises, isExercisesLoaded } =
     useContext(ExercisesContext);
@@ -29,7 +29,7 @@ function ExistingExercises() {
   let filteredExercises;
 
   if (isExercisesLoaded) {
-    console.log("exercises are ", exercises);
+    //console.log("exercises are ", exercises);
     // const areas = exercises.map((exercise) => exercise.area);
     // distinctAreas = areas.filter(
     //   (area, index) => areas.indexOf(area) === index
@@ -41,7 +41,7 @@ function ExistingExercises() {
   }
 
   function onValChange(selectedTargetedArea) {
-    console.log("Selected targeted area ", selectedTargetedArea);
+    //console.log("Selected targeted area ", selectedTargetedArea);
     //call setFilteredExercises function here
     setFilteredExercises(selectedTargetedArea);
   }

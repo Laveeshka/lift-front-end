@@ -53,7 +53,7 @@ function ExerciseSet({
 
   function updateSetInDB(set){
     const setId = set.id;
-    fetch(`http://localhost:9292/workout_sets/${setId}`, {
+    fetch(`http://${process.env.REACT_APP_SINATRA_API_BASE_URL}/workout_sets/${setId}`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json"

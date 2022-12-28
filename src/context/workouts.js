@@ -6,7 +6,7 @@ function WorkoutsProvider({ children }){
     const [workouts, setWorkouts] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:9292/workouts")
+        fetch(`http://${process.env.REACT_APP_SINATRA_API_BASE_URL}/workouts`)
             .then(res => res.json())
             .then(workoutsData => {
                 setWorkouts(workoutsData);
