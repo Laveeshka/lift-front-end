@@ -6,6 +6,7 @@ import CommonChip from "../common/Chip/CommonChip";
 import { useState, useContext } from "react";
 import { WorkoutContext } from "./../../context/workout";
 import { useNavigate } from "react-router-dom";
+import { sinatraApiBaseUrl } from "../../utils/api";
 
 
 function ExercisesList({ sxList, exerciseItems }) {
@@ -27,7 +28,7 @@ function ExercisesList({ sxList, exerciseItems }) {
 
   const postWorkoutExerciseToDb = (id) => {
     //POST request for workout exercise
-    fetch(`${process.env.REACT_APP_SINATRA_API_BASE_URL}/workout_exercises`, {
+    fetch(`${sinatraApiBaseUrl}/workout_exercises`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -55,7 +56,7 @@ function ExercisesList({ sxList, exerciseItems }) {
   const postFirstExerciseSetToDb = (workoutExerciseId) => {
     console.log("workout exercise is: ", workoutExerciseId);
     //create first exercise set with default values
-    fetch(`${process.env.REACT_APP_SINATRA_API_BASE_URL}/workout_sets`, {
+    fetch(`${sinatraApiBaseUrl}/workout_sets`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { sinatraApiBaseUrl } from "../utils/api";
 
 const ExercisesContext = React.createContext();
 
@@ -6,7 +7,7 @@ function ExercisesProvider({ children }) {
   const [exercises, setExercises] = useState([]);
   const [isExercisesLoaded, setIsExercisesLoaded] = useState(false);
 
-  const exercisesURL = `${process.env.REACT_APP_SINATRA_API_BASE_URL}/exercises`;
+  const exercisesURL = `${sinatraApiBaseUrl}/exercises`;
 
   useEffect(()=> {
     setIsExercisesLoaded(false);

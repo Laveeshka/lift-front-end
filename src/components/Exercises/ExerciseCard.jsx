@@ -9,6 +9,7 @@ import CommonButton from "../../components/common/Button/Button";
 import ExerciseSet from './ExerciseSet';
 import {  useContext } from 'react';
 import { ExercisesContext } from './../../context/exercises';
+import { sinatraApiBaseUrl } from '../../utils/api';
 
 function ExerciseCard({workoutExercise, exerciseSets, setExerciseSets, handleRemoveWorkoutExercise, handleAddSet}){
 
@@ -32,7 +33,7 @@ function ExerciseCard({workoutExercise, exerciseSets, setExerciseSets, handleRem
     function handleDeleteSet(set){
        //delete set logic here
        const setId = set.id;
-       fetch(`${process.env.REACT_APP_SINATRA_API_BASE_URL}/workout_sets/${setId}`, {
+       fetch(`${sinatraApiBaseUrl}/workout_sets/${setId}`, {
         method: "DELETE"
        })
         .then(res => res.json())

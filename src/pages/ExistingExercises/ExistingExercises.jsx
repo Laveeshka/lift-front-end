@@ -11,13 +11,14 @@ import ExercisesList from "../../components/ExercisesList/ExercisesList";
 import CommonButton from "../../components/common/Button/Button";
 import { areaConstants } from "./constants";
 import CreateExerciseDialog from "../../components/Dialog/CreateExercise";
+import { sinatraApiBaseUrl } from "../../utils/api";
 
 function ExistingExercises() {
   const listStyles = {
     width: "100%",
   };
 
-  const exercisesURL = `${process.env.REACT_APP_SINATRA_API_BASE_URL}/exercises`;
+  const exercisesURL = `${sinatraApiBaseUrl}/exercises`;
 
   const { exercises, setExercises, isExercisesLoaded } =
     useContext(ExercisesContext);
@@ -27,14 +28,6 @@ function ExistingExercises() {
 
   const navigate = useNavigate();
   let filteredExercises;
-
-  if (isExercisesLoaded) {
-    //console.log("exercises are ", exercises);
-    // const areas = exercises.map((exercise) => exercise.area);
-    // distinctAreas = areas.filter(
-    //   (area, index) => areas.indexOf(area) === index
-    // );
-  }
 
   function handleClickBackButton() {
     navigate("/workout");

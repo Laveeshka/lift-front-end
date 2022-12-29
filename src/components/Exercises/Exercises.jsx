@@ -10,6 +10,7 @@ import EndWorkoutDialog from "../Dialog/EndWorkout";
 import { Box } from "@mui/material";
 import moment from 'moment';
 import { useNavigate } from "react-router-dom";
+import { sinatraApiBaseUrl } from "../../utils/api";
 
 function Exercises(){
 
@@ -28,7 +29,7 @@ function Exercises(){
 
   function handleRemoveWorkoutExercise(workoutExerciseToRemove){
     const id = workoutExerciseToRemove.id;
-    fetch(`${process.env.REACT_APP_SINATRA_API_BASE_URL}/workout_exercises/${id}`, {
+    fetch(`${sinatraApiBaseUrl}/workout_exercises/${id}`, {
       method: "DELETE"
     })
       .then(res => res.json())
@@ -44,7 +45,7 @@ function Exercises(){
 
   function handleAddSet(workoutExercise){
     const workoutExerciseId = workoutExercise.id;
-    fetch(`${process.env.REACT_APP_SINATRA_API_BASE_URL}/workout_sets`, {
+    fetch(`${sinatraApiBaseUrl}/workout_sets`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -75,7 +76,7 @@ function Exercises(){
   function handleUpdateWorkout(){
       //PATCH request for workout, update completed_at attribute
       const workoutId = workout.id;
-      fetch(`${process.env.REACT_APP_SINATRA_API_BASE_URL}/workouts/${workoutId}`, {
+      fetch(`${sinatraApiBaseUrl}/workouts/${workoutId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json"

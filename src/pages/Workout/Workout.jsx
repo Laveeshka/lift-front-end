@@ -14,13 +14,14 @@ import Exercises from "../../components/Exercises/Exercises";
 import { WorkoutContext } from "./../../context/workout";
 import { useNavigate } from "react-router-dom";
 import moment from 'moment';
+import { sinatraApiBaseUrl } from "../../utils/api";
 
 function Workout() {
   //isPaused state
   const [isPaused, setIsPaused] = useState(false);
   //call useContext with WorkoutContext
   const { workout, setWorkout, time, setTime, setWorkoutExercises, setExerciseSets } = useContext(WorkoutContext);
-  const workoutsURL = `${process.env.REACT_APP_SINATRA_API_BASE_URL}/workouts`;
+  const workoutsURL = `${sinatraApiBaseUrl}/workouts`;
 
   const tabmenuHeight = 48;
 

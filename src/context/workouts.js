@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { sinatraApiBaseUrl } from '../utils/api';
 
 const WorkoutsContext  = React.createContext();
 
@@ -6,7 +7,7 @@ function WorkoutsProvider({ children }){
     const [workouts, setWorkouts] = useState([]);
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_SINATRA_API_BASE_URL}/workouts`)
+        fetch(`${sinatraApiBaseUrl}/workouts`)
             .then(res => res.json())
             .then(workoutsData => {
                 setWorkouts(workoutsData);

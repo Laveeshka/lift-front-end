@@ -6,6 +6,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useState, useEffect } from "react";
+import { sinatraApiBaseUrl } from "../../utils/api";
 
 function ExerciseSet({
   set,
@@ -53,7 +54,7 @@ function ExerciseSet({
 
   function updateSetInDB(set){
     const setId = set.id;
-    fetch(`${process.env.REACT_APP_SINATRA_API_BASE_URL}/workout_sets/${setId}`, {
+    fetch(`${sinatraApiBaseUrl}/workout_sets/${setId}`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json"
