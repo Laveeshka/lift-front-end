@@ -23,6 +23,9 @@ export const liftTheme = createTheme({
         },
         outline: {
             main: '#dedede'
+        },
+        gradient: {
+            main: 'linear-gradient(180deg, #FF0056 0%, #C78A9F 100%)'
         }
     },
     typography: {
