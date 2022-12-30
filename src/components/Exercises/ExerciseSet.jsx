@@ -14,9 +14,15 @@ function ExerciseSet({
   handleDeleteSetClick,
   updatedExerciseSetsInContext
 }) {
-  const [completed, setCompleted] = useState(false);
-  const [reps, setReps] = useState(0);
-  const [weight, setWeight] = useState(0);
+  const [completed, setCompleted] = useState(set.completed);
+  const [reps, setReps] = useState(set.reps);
+  const [weight, setWeight] = useState(set.weight);
+
+  //new code
+  let repsValue = reps;
+  let weightValue = weight;
+  let completedValue = completed;
+  //end of new code
 
   useEffect(() => {
     updateSetInDB(set);
@@ -31,6 +37,7 @@ function ExerciseSet({
     //do not update state if the input field is empty
     if (e.target.value) {
       setReps(e.target.value);
+      repsValue = e.target.value;
       console.log("reps are: ", reps);
     }
   }
@@ -40,6 +47,7 @@ function ExerciseSet({
     //do not update state if the input field is empty
     if (e.target.value){
         setWeight(e.target.value);
+        weightValue = e.target.value;
         console.log("weight is: ", weight);
     }
     
@@ -48,6 +56,7 @@ function ExerciseSet({
   function handleCompleteSetClick() {
     //on complete icon button click, toggle completed state
     //PATCH request for set
+    completedValue = !completed;
     setCompleted(prev => !prev);
     //updateSetInDB(set);
   }
@@ -60,9 +69,9 @@ function ExerciseSet({
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            reps,
-            weight,
-            completed,
+            reps: repsValue,
+            weight: weightValue,
+            completed: completedValue,
         })
     })
         .then(res => res.json())

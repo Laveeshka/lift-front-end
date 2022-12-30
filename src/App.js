@@ -21,7 +21,7 @@ function App() {
   return (
     <ThemeProvider theme={liftTheme}>
       <Box sx={{width: "100%", background: "linear-gradient(180deg, #FF0056 0%, #C78A9F 100%)"}}>
-        <Container maxWidth="mobile" sx={{backgroundColor: "background.main"}}>
+        <Container maxWidth="mobile" sx={{backgroundColor: "background.main", overflowY: "scroll"}}>
             { match ? null : <Tabnav /> }
             <Routes>
               <Route path="/" element={<Workout />}></Route>
