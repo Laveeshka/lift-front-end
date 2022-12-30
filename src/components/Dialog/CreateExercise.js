@@ -38,8 +38,12 @@ function CreateExerciseDialog(props) {
   function handleSaveClick() {
     //invoke callback function here to update exercises context
     //invoke callback function here to post new exercise to db
-    addNewExercise(exerciseName, selectedArea);
-    onClose();
+    if (exerciseName !== "" && selectedArea !== "") {
+      addNewExercise(exerciseName, selectedArea);
+      setSelectedArea("");
+      setExerciseName("");
+      onClose();
+    }
   }
 
   function handleTextFieldChange(event) {
@@ -60,9 +64,10 @@ function CreateExerciseDialog(props) {
   return (
     <Dialog onClose={handleClose} open={open}>
       <DialogTitle>{dialogTitle}</DialogTitle>
-      <DialogContent>
+      <DialogContent sx={{padding: "1rem 1.5rem"}}>
         <Stack>
           <CommonTextField
+            sx={{mt: 1}}
             id="new-exercise-name"
             label="Name"
             variant="outlined"
@@ -71,6 +76,7 @@ function CreateExerciseDialog(props) {
             handleChange={handleTextFieldChange}
           ></CommonTextField>
           <InputSelectNew
+            sx={{margin: "0.5rem 0 0 0"}}
             label="Targeted area"
             items={areaItems}
             formHelperText={formHelperText}
@@ -78,7 +84,7 @@ function CreateExerciseDialog(props) {
           ></InputSelectNew>
         </Stack>
       </DialogContent>
-      <DialogActions>
+      <DialogActions sx={{mb: 1}}>
         <Grid container spacing={2}>
           <Grid item mobile={6}>
             <CommonButton
