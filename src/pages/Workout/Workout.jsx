@@ -83,7 +83,7 @@ function Workout() {
           imageAlt="dog petting"
           imageSrc={pettingImg}
           h3text="Save the pats for later"
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna."
+          text="Hey superstar! Grab your exercise mat, water, fire up your favourite workout playlist and let's get started"
           btnText="Start Workout"
           btnVariant="contained"
           handleClick={handleStartWorkout}

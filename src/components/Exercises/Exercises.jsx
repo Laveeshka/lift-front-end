@@ -127,7 +127,7 @@ function Exercises(){
           imageAlt="freestyling human"
           imageSrc={runningImg}
           h3text="Are we freestyling?"
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna."
+          text="Add your exercises now to keep track of how amazing you are doing!"
           btnText="Add exercise"
           btnVariant="contained"
           handleClick={handleAddExercise}
